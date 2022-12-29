@@ -11,6 +11,7 @@ on:
 env:
   AWS_REGION: us-east-1
   TEAR_DOWN: no
+  RUN_LINTER: false
 
 jobs:
   Run-Linter:
@@ -29,6 +30,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - name: Run linter
+        if: ${{ env.RUN_LINTER == 'true' }}
         run: |
           cfn-lint ${{ github.workspace }}/cloudformation/*.yml
       - run: echo "Job Status is ${{ job.status }}."
